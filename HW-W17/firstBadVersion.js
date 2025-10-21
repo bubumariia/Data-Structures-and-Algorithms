@@ -1,15 +1,28 @@
-var solution = function(isBadVersion) {
-    /**
-     * @param {integer} n Total versions
-     * @return {integer} The first bad version
-     */
-    return function(n) {
-        let left = 0
-        let right = n -1
 
-        while(left <= right){
-            let middle = (left + right) / 2
-            
+const isBadVersion = (version) => version >= 4;
+
+
+var solution = function(isBadVersion) {
+  return function(n) {
+    let left = 0;
+    let right = n;
+    let output = -1
+
+    while(right >= left){
+        let middle = Math.floor((right + left) / 2)
+        if(!isBadVersion(middle)){
+            left = middle + 1
+        }else{
+            output = middle
+            right = middle - 1
         }
-    };
+    }
+    return output
+    
+  };
 };
+
+
+const findFirstBad = solution(isBadVersion);
+
+console.log(findFirstBad(5))
